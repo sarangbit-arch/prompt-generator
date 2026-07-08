@@ -5,386 +5,356 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>문화자원 캐릭터 이미지 생성기</title>
 <style>
-* { box-sizing: border-box; }
-body { margin:0; font-family:"맑은 고딕","Noto Sans KR",Arial,sans-serif; background:#f4f6f8; color:#1f2937; }
-.container { max-width: 980px; margin:0 auto; padding:20px; }
-.top-banner { background:#1e3a5f; color:white; border-radius:24px; padding:24px 20px; text-align:center; margin-bottom:22px; }
-.org { font-size:22px; font-weight:bold; margin-bottom:10px; }
-.project { font-size:30px; font-weight:800; line-height:1.35; }
-.icons { font-size:28px; margin-top:14px; letter-spacing:8px; }
-.card { background:white; border-radius:24px; padding:30px; box-shadow:0 8px 24px rgba(0,0,0,0.08); }
-h1 { text-align:center; color:#1e3a5f; font-size:36px; margin:0 0 10px; line-height:1.25; }
-.guide { text-align:center; font-size:22px; line-height:1.6; margin-bottom:24px; }
-.rule-box { background:#f8fafc; border:3px solid #dbeafe; border-radius:20px; padding:18px; font-size:20px; line-height:1.55; margin-bottom:20px; }
-.rule-box strong { color:#1e3a5f; }
-.section-title { margin-top:24px; margin-bottom:12px; font-size:23px; font-weight:bold; color:#1e3a5f; }
-.option-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
-.option { border:3px solid #d1d5db; border-radius:16px; padding:15px 10px; text-align:center; font-size:21px; font-weight:bold; background:#fff; cursor:pointer; user-select:none; min-height:62px; display:flex; align-items:center; justify-content:center; }
-.option.selected { background:#1e3a5f; color:white; border-color:#1e3a5f; }
-.option.etc { background:#fafafa; }
-.option.etc.selected { background:#1e3a5f; }
-input, textarea { width:100%; padding:18px; font-size:22px; border:3px solid #d1d5db; border-radius:16px; margin-top:10px; font-family:inherit; }
-textarea { min-height:120px; resize:vertical; line-height:1.6; }
-input:focus, textarea:focus { outline:none; border-color:#1e3a5f; background:#f8fbff; }
-.hidden { display:none; }
-.free-box { margin-top:28px; padding:24px; border-radius:24px; background:#fafbff; border:3px solid #e1e7f5; }
-.free-title { font-size:32px; font-weight:800; color:#1f2a44; margin-bottom:16px; }
-.free-guide { font-size:22px; color:#666; margin-bottom:18px; line-height:1.5; }
-.two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-button { width:100%; padding:18px; border:none; border-radius:16px; font-size:24px; font-weight:bold; cursor:pointer; margin-top:16px; }
-.make-btn { background:#1e3a5f; color:white; margin-top:30px; }
-.copy-btn { background:#2563eb; color:white; }
-.reset-btn { background:#e5e7eb; color:#111827; }
-.message { display:none; margin-top:20px; padding:16px; border-radius:14px; text-align:center; font-size:22px; font-weight:bold; }
-.error { background:#fee2e2; color:#991b1b; }
-.success { background:#dcfce7; color:#166534; }
-.result-box { display:none; margin-top:30px; padding:26px; border-radius:22px; background:#f8fafc; border:3px dashed #1e3a5f; }
-.result-title { font-size:30px; font-weight:bold; color:#1e3a5f; margin-bottom:10px; }
-.result-guide { font-size:21px; color:#1e3a5f; font-weight:bold; margin-bottom:18px; }
-#resultText { font-size:24px; line-height:1.7; background:white; padding:22px; border-radius:18px; border:2px solid #e5e7eb; word-break:keep-all; white-space:pre-wrap; }
-.small-note { margin-top:16px; color:#4b5563; font-size:18px; line-height:1.5; }
-.selected-count { margin-top:12px; font-size:19px; color:#1e3a5f; font-weight:bold; }
-@media(max-width: 640px) { .container{padding:14px;} .card{padding:22px;} .project{font-size:24px;} h1{font-size:30px;} .guide,.section-title,input,textarea,button{font-size:20px;} .option-grid{grid-template-columns:repeat(2,1fr);} .option{font-size:19px;} .two-col{grid-template-columns:1fr;} .free-title{font-size:28px;} #resultText{font-size:21px;} }
+*{box-sizing:border-box}
+body{margin:0;font-family:"맑은 고딕","Noto Sans KR",Arial,sans-serif;background:#f4f6f8;color:#1f2937}
+.container{max-width:920px;margin:0 auto;padding:20px}
+.top-banner{background:#1e3a5f;color:#fff;border-radius:24px;padding:24px 20px;text-align:center;margin-bottom:22px}
+.org{font-size:22px;font-weight:700;margin-bottom:10px}.project{font-size:30px;font-weight:800;line-height:1.35}.icons{font-size:28px;margin-top:14px;letter-spacing:8px}
+.card{background:#fff;border-radius:24px;padding:30px;box-shadow:0 8px 24px rgba(0,0,0,.08)}
+h1{text-align:center;color:#1e3a5f;font-size:36px;margin:0 0 10px}.guide{text-align:center;font-size:21px;line-height:1.6;margin-bottom:28px}.section-title{margin-top:26px;margin-bottom:12px;font-size:23px;font-weight:800;color:#1e3a5f}
+.option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.option{border:3px solid #d1d5db;border-radius:16px;padding:15px 10px;text-align:center;font-size:20px;font-weight:700;background:#fff;cursor:pointer;user-select:none;min-height:58px;display:flex;align-items:center;justify-content:center}.option.selected{background:#1e3a5f;color:#fff;border-color:#1e3a5f}.option.disabled{opacity:.35;cursor:not-allowed;background:#f3f4f6;color:#6b7280}
+input,textarea{width:100%;padding:18px;font-size:21px;border:3px solid #d1d5db;border-radius:16px;margin-top:10px;font-family:inherit}textarea{min-height:110px;resize:vertical;line-height:1.6}input:focus,textarea:focus{outline:none;border-color:#1e3a5f;background:#f8fbff}.hidden{display:none!important}
+.info-box{margin-top:18px;padding:18px;border-radius:18px;background:#f8fafc;border:2px solid #e5e7eb;font-size:19px;line-height:1.6}.selected-list{font-weight:800;color:#1e3a5f}.free-box{margin-top:28px;padding:22px;border-radius:24px;background:#fafbff;border:3px solid #e1e7f5}.free-title{font-size:28px;font-weight:800;color:#1f2a44;margin-bottom:10px}.free-guide{font-size:20px;color:#666;margin-bottom:12px}
+button{width:100%;padding:18px;border:none;border-radius:16px;font-size:23px;font-weight:800;cursor:pointer;margin-top:16px}.make-btn{background:#1e3a5f;color:#fff;margin-top:30px}.copy-btn{background:#2563eb;color:#fff}.reset-btn{background:#e5e7eb;color:#111827}.message{display:none;margin-top:20px;padding:16px;border-radius:14px;text-align:center;font-size:21px;font-weight:800}.error{background:#fee2e2;color:#991b1b}.success{background:#dcfce7;color:#166534}.result-box{display:none;margin-top:30px;padding:26px;border-radius:22px;background:#f8fafc;border:3px dashed #1e3a5f}.result-title{font-size:28px;font-weight:800;color:#1e3a5f;margin-bottom:10px}.result-guide{font-size:20px;color:#1e3a5f;font-weight:700;margin-bottom:18px}#resultText{white-space:pre-line;font-size:22px;line-height:1.65;background:#fff;padding:22px;border-radius:18px;border:2px solid #e5e7eb;word-break:keep-all}.hint{font-size:18px;color:#64748b;margin-top:8px;line-height:1.5}
+@media(max-width:700px){.container{padding:14px}.card{padding:20px}.project{font-size:24px}h1{font-size:29px}.guide,.section-title,input,textarea,button{font-size:19px}.option-grid{grid-template-columns:repeat(2,1fr)}.option{font-size:18px}.free-title{font-size:24px}#resultText{font-size:20px}}
 </style>
 </head>
 <body>
 <div class="container">
   <div class="top-banner">
     <div class="org">강원인재원 × AIWORKX</div>
-    <div class="project">2차시 프롬프트 생성기<br>문화자원 캐릭터 이미지 생성기</div>
-    <div class="icons">🐾 🌿 🎉 ✏️</div>
+    <div class="project">생성형 AI 활용<br>강원 문화자원 굿즈 만들기</div>
+    <div class="icons">🦦 ⛰️ 🎉 🎨</div>
   </div>
 
   <div class="card">
-    <h1>문화자원 캐릭터 만들기</h1>
-    <div class="guide">문화자원 카드를 1장 또는 2장 고르고<br>캐릭터 소개 카드 이미지 문장을 만들어 보세요.</div>
+    <h1>문화자원 캐릭터 이미지 생성기</h1>
+    <div class="guide">문화자원 카드를 1장 또는 2장 선택하고<br>캐릭터 설정집 이미지를 만들 프롬프트를 생성하세요.</div>
 
-    <div class="rule-box">
-      <strong>선택 규칙</strong><br>
-      카드 1장 → 선택한 문화자원 자체를 캐릭터로 표현합니다.<br>
-      동물 친구 + 자연 친구 → 동물 친구가 주인공, 자연 친구는 배경이 됩니다.<br>
-      이야기 친구 + 자연 친구 → 이야기 친구가 주인공, 자연 친구는 배경이 됩니다.<br>
-      동물 친구 + 이야기 친구 → 두 문화자원을 합친 새로운 캐릭터가 됩니다.<br>
-      ※ 카드는 최대 2장까지 선택할 수 있습니다.
+    <div class="info-box">
+      <b>선택 규칙</b><br>
+      카드 1장 → 해당 문화자원을 캐릭터화합니다.<br>
+      동물 친구 + 자연 친구 → 동물이 주인공, 자연은 배경이 됩니다.<br>
+      이야기 친구 + 자연 친구 → 이야기 자원이 주인공, 자연은 배경이 됩니다.<br>
+      동물 친구 + 이야기 친구 → 두 자원을 결합한 새 캐릭터가 됩니다.<br>
+      <div class="hint">최대 2장까지 선택할 수 있습니다.</div>
     </div>
-
-    <div id="selectedCount" class="selected-count">선택한 카드: 0장</div>
 
     <div class="section-title">① 🐾 동물 친구</div>
-    <div class="option-grid resource-grid" data-group="animalFriend">
-      <div class="option">춘천-공지어</div><div class="option">원주-꿩</div><div class="option">속초-오징어</div>
-      <div class="option">양양-연어</div><div class="option">영월-수달</div><div class="option">철원-두루미</div>
-      <div class="option">화천-산천어</div><div class="option etc">✏️ 직접 입력하기</div>
+    <div class="option-grid" data-group="animal">
+      <div class="option" data-value="춘천-공지어">춘천-공지어</div>
+      <div class="option" data-value="원주-꿩">원주-꿩</div>
+      <div class="option" data-value="속초-오징어">속초-오징어</div>
+      <div class="option" data-value="양양-연어">양양-연어</div>
+      <div class="option" data-value="영월-수달">영월-수달</div>
+      <div class="option" data-value="철원-두루미">철원-두루미</div>
+      <div class="option" data-value="화천-산천어">화천-산천어</div>
+      <div class="option etc" data-value="직접입력">✏️ 직접 입력</div>
     </div>
-    <input id="animalFriendEtc" class="hidden" placeholder="동물 친구를 직접 적어주세요. 예) 인제-반달가슴곰" />
+    <input id="animalEtc" class="hidden" placeholder="예: 평창-반달가슴곰" />
 
     <div class="section-title">② 🌿 자연 친구</div>
-    <div class="option-grid resource-grid" data-group="natureFriend">
-      <div class="option">원주-치악산</div><div class="option">강릉-경포호</div><div class="option">동해-촛대바위</div>
-      <div class="option">속초-설악산</div><div class="option">속초-흔들바위</div><div class="option">속초-울산바위</div>
-      <div class="option">삼척-맹방 유채꽃</div><div class="option">고성-DMZ</div><div class="option">고성-라벤더</div>
-      <div class="option">양양-서핑</div><div class="option">철원-주상절리</div><div class="option">인제-자작나무숲</div>
-      <div class="option etc">✏️ 직접 입력하기</div>
+    <div class="option-grid" data-group="nature">
+      <div class="option" data-value="원주-치악산">원주-치악산</div>
+      <div class="option" data-value="강릉-경포호">강릉-경포호</div>
+      <div class="option" data-value="동해-촛대바위">동해-촛대바위</div>
+      <div class="option" data-value="속초-설악산">속초-설악산</div>
+      <div class="option" data-value="속초-흔들바위">속초-흔들바위</div>
+      <div class="option" data-value="속초-울산바위">속초-울산바위</div>
+      <div class="option" data-value="삼척-맹방유채꽃">삼척-맹방유채꽃</div>
+      <div class="option" data-value="고성-DMZ">고성-DMZ</div>
+      <div class="option" data-value="고성-라벤더">고성-라벤더</div>
+      <div class="option" data-value="양양-서핑">양양-서핑</div>
+      <div class="option" data-value="철원-주상절리">철원-주상절리</div>
+      <div class="option" data-value="인제-자작나무숲">인제-자작나무숲</div>
+      <div class="option etc" data-value="직접입력">✏️ 직접 입력</div>
     </div>
-    <input id="natureFriendEtc" class="hidden" placeholder="자연 친구를 직접 적어주세요. 예) 강릉-동해바다" />
+    <input id="natureEtc" class="hidden" placeholder="예: 영월-동강" />
 
     <div class="section-title">③ 🎉 이야기 친구</div>
-    <div class="option-grid resource-grid" data-group="storyFriend">
-      <div class="option">춘천-닭갈비</div><div class="option">춘천-소양강처녀</div><div class="option">원주-복숭아</div>
-      <div class="option">강릉-커피</div><div class="option">강릉-단오제</div><div class="option">동해-묵호</div>
-      <div class="option">속초-아바이순대</div><div class="option">양양-송이버섯</div><div class="option">홍천-찰옥수수</div>
-      <div class="option">홍천-인삼</div><div class="option">횡성-한우</div><div class="option">횡성-안흥찐빵</div>
-      <div class="option">영월-단종문화제</div><div class="option">정선-정선아리랑</div><div class="option">정선-황기</div>
-      <div class="option">태백-탄광</div><div class="option">태백-태백산 눈축제</div><div class="option">철원-오대쌀</div>
-      <div class="option">화천-토마토</div><div class="option">양구-백자</div><div class="option">양구-멜론</div>
-      <div class="option">인제-황태</div><div class="option etc">✏️ 직접 입력하기</div>
+    <div class="option-grid" data-group="story">
+      <div class="option" data-value="춘천-닭갈비">춘천-닭갈비</div>
+      <div class="option" data-value="춘천-소양강처녀">춘천-소양강처녀</div>
+      <div class="option" data-value="원주-복숭아">원주-복숭아</div>
+      <div class="option" data-value="강릉-커피">강릉-커피</div>
+      <div class="option" data-value="강릉-단오제">강릉-단오제</div>
+      <div class="option" data-value="속초-아바이순대">속초-아바이순대</div>
+      <div class="option" data-value="양양-송이버섯">양양-송이버섯</div>
+      <div class="option" data-value="태백-태백산눈축제">태백-태백산눈축제</div>
+      <div class="option" data-value="태백-탄광">태백-탄광</div>
+      <div class="option" data-value="홍천-찰옥수수">홍천-찰옥수수</div>
+      <div class="option" data-value="홍천-인삼">홍천-인삼</div>
+      <div class="option" data-value="횡성-한우">횡성-한우</div>
+      <div class="option" data-value="횡성-안흥찐빵">횡성-안흥찐빵</div>
+      <div class="option" data-value="영월-단종문화제">영월-단종문화제</div>
+      <div class="option" data-value="정선-정선아리랑">정선-정선아리랑</div>
+      <div class="option" data-value="정선-황기">정선-황기</div>
+      <div class="option" data-value="철원-오대쌀">철원-오대쌀</div>
+      <div class="option" data-value="화천-토마토">화천-토마토</div>
+      <div class="option" data-value="양구-백자">양구-백자</div>
+      <div class="option" data-value="양구-멜론">양구-멜론</div>
+      <div class="option" data-value="인제-황태">인제-황태</div>
+      <div class="option etc" data-value="직접입력">✏️ 직접 입력</div>
     </div>
-    <input id="storyFriendEtc" class="hidden" placeholder="이야기 친구를 직접 적어주세요. 예) 양양-송이버섯" />
+    <input id="storyEtc" class="hidden" placeholder="예: 평창-메밀꽃" />
 
-    <div class="section-title">④ 카드에서 본 특징을 적어주세요</div>
-    <textarea id="resourceInfo" placeholder="예) 동강과 서강의 깨끗한 강물에 사는 보호종이에요. 건강한 생태환경을 상징해요.
-예) 주상절리는 육각형 바위기둥이 장관을 이루는 지형이에요."></textarea>
+    <div class="info-box">
+      선택한 카드: <span id="selectedList" class="selected-list">없음</span>
+    </div>
 
-    <div class="section-title">⑤ 캐릭터 이름을 적어주세요</div>
-    <input id="characterName" placeholder="예) 동강 수달이, 설악 바위왕, 커피 요정" />
+    <div class="section-title">④ 캐릭터 이름</div>
+    <input id="characterName" placeholder="예: 동강이, 절리미, 소양이" />
 
-    <div class="section-title">⑥ 주인공의 성격을 골라주세요</div>
+    <div class="section-title">⑤ 성격</div>
     <div class="option-grid" data-group="personality">
-      <div class="option">귀여운</div><div class="option">용감한</div><div class="option">친절한</div>
-      <div class="option">장난꾸러기</div><div class="option">차분한</div><div class="option">신나는</div>
-      <div class="option">똑똑한</div><div class="option">따뜻한</div><div class="option etc">기타</div>
+      <div class="option">용감한</div>
+      <div class="option">따뜻한</div>
+      <div class="option">활발한</div>
+      <div class="option">차분한</div>
+      <div class="option">신나는</div>
+      <div class="option">장난꾸러기</div>
+      <div class="option etc">✏️ 직접 입력</div>
     </div>
     <input id="personalityEtc" class="hidden" placeholder="성격을 적어주세요." />
 
-    <div class="section-title">⑦ 캐릭터의 행동을 골라주세요</div>
-    <div class="option-grid" data-group="action">
-      <div class="option">인사하는</div><div class="option">춤추는</div><div class="option">달리는</div>
-      <div class="option">수영하는</div><div class="option">날아오르는</div><div class="option">서핑하는</div>
-      <div class="option">마법을 쓰는</div><div class="option">친구를 돕는</div><div class="option etc">기타</div>
-    </div>
-    <input id="actionEtc" class="hidden" placeholder="행동을 적어주세요." />
+    <div class="section-title">⑥ 특징</div>
+    <input id="feature" placeholder="예: 수영을 잘함, 노래를 좋아함, 바람을 잘 탐" />
 
-    <div class="section-title">⑧ 특별한 힘을 골라주세요</div>
-    <div class="option-grid" data-group="power">
-      <div class="option">물을 깨끗하게 하는 힘</div><div class="option">바람을 부르는 힘</div><div class="option">사람을 웃게 하는 힘</div>
-      <div class="option">강원을 지키는 힘</div><div class="option">친구를 응원하는 힘</div><div class="option">빛을 내는 힘</div>
-      <div class="option etc">기타</div>
-    </div>
-    <input id="powerEtc" class="hidden" placeholder="특별한 힘을 적어주세요." />
+    <div class="section-title">⑦ 특별한 힘</div>
+    <input id="power" placeholder="예: 강물을 깨끗하게 하는 힘, 바람을 부르는 힘" />
 
-    <div class="two-col">
-      <div>
-        <div class="section-title">⑨ 대표 색</div>
-        <div class="option-grid" data-group="color">
-          <div class="option">파랑</div><div class="option">초록</div><div class="option">노랑</div>
-          <div class="option">보라</div><div class="option">분홍</div><div class="option">흰색</div>
-          <div class="option etc">기타</div>
-        </div>
-        <input id="colorEtc" class="hidden" placeholder="색을 적어주세요." />
-      </div>
-      <div>
-        <div class="section-title">⑩ 그림 스타일</div>
-        <div class="option-grid" data-group="style">
-          <div class="option">귀여운 스티커</div><div class="option">동화책</div><div class="option">3D 캐릭터</div>
-          <div class="option">웹툰</div><div class="option">수채화</div><div class="option">픽셀아트</div>
-          <div class="option etc">기타</div>
-        </div>
-        <input id="styleEtc" class="hidden" placeholder="스타일을 적어주세요." />
-      </div>
+    <div class="section-title">⑧ 대표 색</div>
+    <div class="option-grid" data-group="color">
+      <div class="option">빨강</div><div class="option">파랑</div><div class="option">노랑</div>
+      <div class="option">초록</div><div class="option">보라</div><div class="option">분홍</div>
+      <div class="option">검정</div><div class="option">흰색</div><div class="option etc">✏️ 직접 입력</div>
     </div>
+    <input id="colorEtc" class="hidden" placeholder="대표 색을 적어주세요." />
+
+    <div class="section-title">⑨ 그림 스타일</div>
+    <div class="option-grid" data-group="style">
+      <div class="option">귀여운 스티커</div>
+      <div class="option">동화책</div>
+      <div class="option">3D 캐릭터</div>
+      <div class="option">웹툰</div>
+      <div class="option">수채화</div>
+      <div class="option">픽셀아트</div>
+      <div class="option etc">✏️ 직접 입력</div>
+    </div>
+    <input id="styleEtc" class="hidden" placeholder="원하는 그림 스타일을 적어주세요." />
 
     <div class="free-box">
-      <div class="free-title">✏️ 더 넣고 싶은 말</div>
-      <div class="free-guide">카드 배경, 소품, 표정, 넣고 싶은 문구를 적어주세요.</div>
-      <textarea id="freeText" placeholder="예) 캐릭터가 활짝 웃고 있으면 좋겠어요. 배경은 너무 복잡하지 않게 해주세요."></textarea>
+      <div class="free-title">✏️ 더 넣고 싶은 내용</div>
+      <div class="free-guide">없으면 비워 두어도 됩니다.</div>
+      <textarea id="freeText" placeholder="예: 웃는 표정이면 좋겠어요. 작은 물방울 소품이 있으면 좋겠어요."></textarea>
     </div>
 
-    <button class="make-btn" id="makeButton">캐릭터 소개 카드 문장 만들기</button>
+    <button class="make-btn" onclick="makePrompt()">AI 이미지 프롬프트 만들기</button>
     <div id="message" class="message"></div>
 
     <div id="resultBox" class="result-box">
-      <div class="result-title">완성된 AI 이미지 프롬프트</div>
-      <div class="result-guide">복사해서 ChatGPT, Gemini, 뤼튼, 패들렛 등에 붙여넣으세요.</div>
+      <div class="result-title">완성된 프롬프트</div>
+      <div class="result-guide">복사해서 이미지 생성 AI에 붙여넣으세요.</div>
       <div id="resultText"></div>
-      <button class="copy-btn" id="copyButton">복사하기</button>
-      <button class="reset-btn" id="resetButton">다시 쓰기</button>
-      <div class="small-note">※ 한글 글자가 이미지에서 깨질 수 있으면, 먼저 글자 없는 카드 이미지를 만들고 Canva나 PPT에서 글자를 넣어도 좋습니다.</div>
+      <button class="copy-btn" onclick="copyPrompt()">복사하기</button>
+      <button class="reset-btn" onclick="resetForm()">다시 쓰기</button>
     </div>
   </div>
 </div>
 
 <script>
 let promptText = "";
-const resourceGroups = ["animalFriend", "natureFriend", "storyFriend"];
-const selectedValues = {
-  animalFriend:"", natureFriend:"", storyFriend:"",
-  personality:"", action:"", power:"", color:"", style:""
-};
+const selected = { animal:null, nature:null, story:null, personality:null, color:null, style:null };
+const resourceGroups = ["animal","nature","story"];
+const maxResources = 2;
 
 function cleanText(text){ return (text || "").trim().replace(/\s+/g," "); }
-function showMessage(text,type){
-  const msg=document.getElementById("message");
-  msg.innerText=text;
-  msg.className="message "+type;
-  msg.style.display="block";
+
+function splitResource(value){
+  const parts = value.split("-");
+  if(parts.length >= 2){ return { region: parts[0], name: parts.slice(1).join("-") }; }
+  return { region: "강원", name: value };
 }
+
+function showMessage(text,type){
+  const msg = document.getElementById("message");
+  msg.innerText = text;
+  msg.className = "message " + type;
+  msg.style.display = "block";
+}
+
+function getSelectedResources(){
+  return resourceGroups
+    .filter(g => selected[g])
+    .map(g => ({ group:g, value:getValue(g), raw:selected[g] }))
+    .filter(item => item.value);
+}
+
+function updateSelectedList(){
+  const items = getSelectedResources();
+  document.getElementById("selectedList").innerText = items.length ? items.map(i => groupLabel(i.group)+" : "+i.value).join(" / ") : "없음";
+
+  const count = items.length;
+  document.querySelectorAll(".option-grid[data-group='animal'] .option, .option-grid[data-group='nature'] .option, .option-grid[data-group='story'] .option").forEach(opt => {
+    const grid = opt.closest(".option-grid");
+    const group = grid.dataset.group;
+    const isSelected = opt.classList.contains("selected");
+    if(count >= maxResources && !isSelected){ opt.classList.add("disabled"); }
+    else { opt.classList.remove("disabled"); }
+  });
+}
+
+function groupLabel(group){
+  if(group === "animal") return "동물 친구";
+  if(group === "nature") return "자연 친구";
+  if(group === "story") return "이야기 친구";
+  return group;
+}
+
 function showEtcInput(group){
-  const input=document.getElementById(group+"Etc");
+  const input = document.getElementById(group + "Etc");
   if(input){ input.classList.remove("hidden"); input.focus(); }
 }
 function hideEtcInput(group){
-  const input=document.getElementById(group+"Etc");
+  const input = document.getElementById(group + "Etc");
   if(input){ input.classList.add("hidden"); input.value=""; }
 }
+
 function getValue(group){
-  const selected=selectedValues[group];
-  if(selected==="기타"){
-    const input=document.getElementById(group+"Etc");
-    return input ? cleanText(input.value) : "";
+  const val = selected[group];
+  if(!val) return "";
+  if(val === "직접입력" || val.includes("직접 입력")){
+    const input = document.getElementById(group + "Etc");
+    return cleanText(input ? input.value : "");
   }
-  return selected;
-}
-function countSelectedResources(){
-  return resourceGroups.filter(group => Boolean(getValue(group))).length;
-}
-function updateSelectedCount(){
-  document.getElementById("selectedCount").innerText = "선택한 카드: " + countSelectedResources() + "장";
-}
-function splitResource(selectedResource){
-  if (!selectedResource) return { region:"강원도", resource:"문화자원" };
-  if (selectedResource.includes("-")) {
-    const parts = selectedResource.split("-");
-    return { region: cleanText(parts[0]), resource: cleanText(parts.slice(1).join("-")) };
-  }
-  return { region:"강원도", resource:cleanText(selectedResource) };
-}
-function getSelectedResources(){
-  return resourceGroups.map(group => ({ group, value:getValue(group), parsed:splitResource(getValue(group)) })).filter(item => item.value);
-}
-function groupLabel(group){
-  if(group === "animalFriend") return "동물 친구";
-  if(group === "natureFriend") return "자연 친구";
-  if(group === "storyFriend") return "이야기 친구";
-  return "문화자원";
+  return val;
 }
 
-function selectOption(grid, option, group){
-  const isResource = resourceGroups.includes(group);
-  const wasSelected = option.classList.contains("selected");
+function bindOptions(){
+  document.querySelectorAll(".option-grid").forEach(grid => {
+    const group = grid.dataset.group;
+    grid.querySelectorAll(".option").forEach(option => {
+      option.addEventListener("click", () => {
+        if(option.classList.contains("disabled") && !option.classList.contains("selected")){
+          showMessage("문화자원 카드는 최대 2장까지 선택할 수 있어요.", "error");
+          return;
+        }
 
-  if(wasSelected){
-    option.classList.remove("selected");
-    selectedValues[group] = "";
-    hideEtcInput(group);
-    updateSelectedCount();
-    return;
-  }
+        if(option.classList.contains("selected")){
+          option.classList.remove("selected");
+          selected[group] = null;
+          hideEtcInput(group);
+          updateSelectedList();
+          return;
+        }
 
-  if(isResource){
-    const currentCount = countSelectedResources();
-    const groupAlreadySelected = Boolean(getValue(group));
-    if(currentCount >= 2 && !groupAlreadySelected){
-      showMessage("카드는 최대 2장까지만 선택할 수 있어요.", "error");
-      return;
-    }
-  }
+        grid.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+        option.classList.add("selected");
+        selected[group] = option.dataset.value || option.innerText.trim();
 
-  grid.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
-  option.classList.add("selected");
-  selectedValues[group] = option.classList.contains("etc") ? "기타" : cleanText(option.innerText);
-  option.classList.contains("etc") ? showEtcInput(group) : hideEtcInput(group);
-  updateSelectedCount();
-}
+        if(option.classList.contains("etc")){ showEtcInput(group); }
+        else { hideEtcInput(group); }
 
-document.querySelectorAll(".option-grid").forEach(grid => {
-  const group = grid.dataset.group;
-  grid.querySelectorAll(".option").forEach(option => {
-    option.addEventListener("click", () => selectOption(grid, option, group));
+        updateSelectedList();
+      });
+    });
   });
-});
+}
 
-function makeScenario(resources){
-  const animal = resources.find(item => item.group === "animalFriend");
-  const nature = resources.find(item => item.group === "natureFriend");
-  const story = resources.find(item => item.group === "storyFriend");
-
+function makeResourceSentence(resources){
   if(resources.length === 1){
-    const one = resources[0];
-    return {
-      main: one,
-      background: null,
-      concept: `${one.parsed.region}의 문화자원 ${one.parsed.resource}을/를 모티브로 한 창작 캐릭터.`,
-      note: "선택한 문화자원 자체를 캐릭터로 표현."
-    };
+    const r = splitResource(resources[0].value);
+    return `${r.region}의 문화자원 ${r.name}을 모티브로 만든 창작 캐릭터.`;
   }
 
-  if(animal && nature){
-    return {
-      main: animal,
-      background: nature,
-      concept: `${animal.parsed.region}의 ${animal.parsed.resource}을/를 주인공 캐릭터로 만들고, ${nature.parsed.region}의 ${nature.parsed.resource}을/를 배경으로 표현.`,
-      note: "동물 친구가 주인공, 자연 친구는 배경."
-    };
+  const a = resources.find(r => r.group === "animal");
+  const n = resources.find(r => r.group === "nature");
+  const s = resources.find(r => r.group === "story");
+
+  if(a && n){
+    const main = splitResource(a.value);
+    const bg = splitResource(n.value);
+    return `${main.region}의 문화자원 ${main.name}을 모티브로 만든 창작 캐릭터.\n배경은 ${bg.region}의 ${bg.name}.`;
+  }
+  if(s && n){
+    const main = splitResource(s.value);
+    const bg = splitResource(n.value);
+    return `${main.region}의 문화자원 ${main.name}을 모티브로 만든 창작 캐릭터.\n배경은 ${bg.region}의 ${bg.name}.`;
+  }
+  if(a && s){
+    const r1 = splitResource(a.value);
+    const r2 = splitResource(s.value);
+    return `${r1.region}의 ${r1.name}과 ${r2.region}의 ${r2.name}을 결합한 창작 캐릭터.`;
   }
 
-  if(story && nature){
-    return {
-      main: story,
-      background: nature,
-      concept: `${story.parsed.region}의 ${story.parsed.resource}을/를 주인공 캐릭터로 만들고, ${nature.parsed.region}의 ${nature.parsed.resource}을/를 배경으로 표현.`,
-      note: "이야기 친구가 주인공, 자연 친구는 배경."
-    };
-  }
-
-  if(animal && story){
-    return {
-      main: animal,
-      background: null,
-      concept: `${animal.parsed.resource}와 ${story.parsed.resource}을/를 합친 새로운 창작 캐릭터.`,
-      note: "동물 친구와 이야기 친구를 합친 캐릭터."
-    };
-  }
-
-  const first = resources[0];
-  const second = resources[1];
-  return {
-    main: first,
-    background: second,
-    concept: `${first.parsed.resource}을/를 주인공 캐릭터로 만들고, ${second.parsed.resource}을/를 배경 또는 상징 요소로 표현.`,
-    note: "두 문화자원을 연결한 창작 이미지."
-  };
+  const r1 = splitResource(resources[0].value);
+  const r2 = splitResource(resources[1].value);
+  return `${r1.region}의 ${r1.name}과 ${r2.region}의 ${r2.name}을 연결한 창작 캐릭터.`;
 }
 
 function makePrompt(){
   const resources = getSelectedResources();
-  const resourceInfo = cleanText(document.getElementById("resourceInfo").value);
-  const characterName = cleanText(document.getElementById("characterName").value);
+  const name = cleanText(document.getElementById("characterName").value);
   const personality = getValue("personality");
-  const action = getValue("action");
-  const power = getValue("power");
+  const feature = cleanText(document.getElementById("feature").value);
+  const power = cleanText(document.getElementById("power").value);
   const color = getValue("color");
   const style = getValue("style");
   const freeText = cleanText(document.getElementById("freeText").value);
 
-  if(resources.length === 0){
-    showMessage("문화자원 카드를 1장 이상 선택해 주세요.", "error");
-    return;
-  }
+  if(resources.length === 0){ showMessage("문화자원 카드를 1장 이상 선택해 주세요.", "error"); return; }
+  if(!name){ showMessage("캐릭터 이름을 입력해 주세요.", "error"); return; }
+  if(!style){ showMessage("그림 스타일을 선택해 주세요.", "error"); return; }
 
-  const scenario = makeScenario(resources);
-  const mainName = scenario.main ? scenario.main.parsed.resource : "문화자원";
-  const title = characterName || (mainName + " 캐릭터");
+  const lines = [];
+  lines.push("캐릭터 설정집(Design Sheet) 스타일.");
+  lines.push("");
+  lines.push(makeResourceSentence(resources));
+  lines.push("");
+  lines.push(`캐릭터 이름: ${name}`);
+  if(personality) lines.push(`성격: ${personality}`);
+  if(feature) lines.push(`특징: ${feature}`);
+  if(power) lines.push(`특별한 힘: ${power}`);
+  if(color) lines.push(`대표 색: ${color}`);
+  lines.push(`그림 스타일: ${style}`);
+  if(freeText && freeText !== "없음") lines.push(`추가 내용: ${freeText}`);
+  lines.push("");
+  lines.push("정면 캐릭터를 크게 표현.");
+  lines.push("캐릭터 이름과 설정 정보를 보기 쉽게 배치.");
+  lines.push("1:1 정사각형 구성.");
 
-  const selectedCards = resources.map(item => `${groupLabel(item.group)}: ${item.value}`).join(" / ");
-
-  const promptLines = [
-    "1:1 정사각형 문화자원 캐릭터 소개 카드.",
-    "상단 제목: \"내가 뽑은 문화자원 소개\"",
-    `선택 카드: ${selectedCards}`,
-    scenario.concept,
-    `캐릭터 이름: ${title}`
-  ];
-
-  if(style) promptLines.push(`그림 스타일: ${style}`);
-  if(personality) promptLines.push(`성격: ${personality}`);
-  if(action) promptLines.push(`행동: ${action}`);
-  if(resourceInfo) promptLines.push(`특징: ${resourceInfo}`);
-  if(power) promptLines.push(`특별한 힘: ${power}`);
-  if(color) promptLines.push(`대표 색: ${color}`);
-  if(scenario.background) promptLines.push(`배경: ${scenario.background.parsed.region}의 ${scenario.background.parsed.resource}`);
-  if(freeText) promptLines.push(`추가 요청: ${freeText}`);
-
-  promptLines.push("캐릭터를 크게 표현.");
-  promptLines.push("배경은 주인공을 방해하지 않게 단순하게 표현.");
-  promptLines.push("카드 안에 지역명, 문화자원 이름, 캐릭터 이름, 특징, 특별한 힘을 보기 쉽게 표시.");
-
-  promptText = promptLines.join("\n");
+  promptText = lines.join("\n");
   document.getElementById("resultText").innerText = promptText;
   document.getElementById("resultBox").style.display = "block";
-  showMessage("캐릭터 소개 카드 문장이 만들어졌어요!", "success");
-  document.getElementById("resultBox").scrollIntoView({ behavior:"smooth", block:"start" });
+  showMessage("프롬프트가 만들어졌어요!", "success");
 }
 
 function copyPrompt(){
-  if(!promptText){ showMessage("먼저 문장을 만들어 주세요.", "error"); return; }
-  navigator.clipboard.writeText(promptText).then(() => showMessage("복사했어요!", "success"))
-  .catch(() => showMessage("복사가 안 되었어요. 문장을 직접 선택해서 복사해 주세요.", "error"));
-}
-function resetForm(){
-  promptText="";
-  Object.keys(selectedValues).forEach(k => selectedValues[k]="");
-  document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
-  document.querySelectorAll("input, textarea").forEach(el => { el.value=""; if(el.id.endsWith("Etc")) el.classList.add("hidden"); });
-  document.getElementById("resultBox").style.display="none";
-  updateSelectedCount();
-  showMessage("다시 입력할 수 있어요.", "success");
-  window.scrollTo({ top:0, behavior:"smooth" });
+  if(!promptText){ showMessage("먼저 프롬프트를 만들어 주세요.", "error"); return; }
+  navigator.clipboard.writeText(promptText).then(() => {
+    showMessage("복사했어요!", "success");
+  }).catch(() => {
+    const range = document.createRange();
+    range.selectNode(document.getElementById("resultText"));
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    showMessage("복사가 안 되면 결과 문장을 직접 선택해서 복사해 주세요.", "error");
+  });
 }
 
-document.getElementById("makeButton").addEventListener("click", makePrompt);
-document.getElementById("copyButton").addEventListener("click", copyPrompt);
-document.getElementById("resetButton").addEventListener("click", resetForm);
-updateSelectedCount();
+function resetForm(){
+  Object.keys(selected).forEach(k => selected[k] = null);
+  document.querySelectorAll(".option").forEach(o => o.classList.remove("selected","disabled"));
+  document.querySelectorAll("input, textarea").forEach(el => { el.value=""; if(el.id.endsWith("Etc")) el.classList.add("hidden"); });
+  document.getElementById("resultBox").style.display = "none";
+  document.getElementById("message").style.display = "none";
+  promptText = "";
+  updateSelectedList();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+bindOptions();
+updateSelectedList();
 </script>
 </body>
 </html>
