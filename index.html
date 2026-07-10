@@ -316,6 +316,53 @@ function makeResourceSentence(resources){
   return `${r1.region}의 ${r1.name}과 ${r2.region}의 ${r2.name}을 연결한 창작 캐릭터.`;
 }
 
+function getStylePrompt(style){
+  const styleDescriptions = {
+    "치비 스타일": [
+      "치비 스타일.",
+      "큰 머리와 작은 몸의 2~3등신 비율.",
+      "귀엽고 아기자기한 SD 캐릭터.",
+      "표정과 동작을 크고 분명하게 강조."
+    ],
+    "귀여운 캐릭터 스타일": [
+      "귀여운 캐릭터 스타일.",
+      "교육용 마스코트 캐릭터.",
+      "둥글고 친근한 형태.",
+      "밝고 따뜻한 표정."
+    ],
+    "수채화 스타일": [
+      "수채화 스타일.",
+      "부드러운 붓터치와 자연스러운 물감 번짐.",
+      "투명하고 은은한 색감.",
+      "종이에 그린 따뜻한 수채화 일러스트 느낌."
+    ],
+    "전통민화 스타일": [
+      "전통민화 스타일.",
+      "한국 전통 민화의 색감과 구도.",
+      "화조도와 호작도에서 영감을 받은 장식적인 표현.",
+      "전통 채색화 느낌과 상징적인 문양."
+    ],
+    "팝아트 스타일": [
+      "팝아트 스타일.",
+      "강한 원색과 선명한 색상 대비.",
+      "굵은 검은 윤곽선.",
+      "만화책 인쇄와 그래픽 포스터 같은 역동적인 표현."
+    ],
+    "라인드로잉 스타일": [
+      "라인드로잉 스타일.",
+      "단순하고 깔끔한 선 중심의 미니멀 일러스트.",
+      "불필요한 장식을 줄인 정돈된 선화.",
+      "캐릭터의 형태와 표정이 선명하게 보이도록 표현."
+    ]
+  };
+
+  if(!style) return "";
+  if(styleDescriptions[style]){
+    return "그림 스타일:\n" + styleDescriptions[style].join("\n");
+  }
+  return `그림 스타일: ${style}`;
+}
+
 function makePrompt(){
   const resources = getSelectedResources();
   const name = cleanText(document.getElementById("characterName").value);
@@ -347,7 +394,7 @@ function makePrompt(){
   if(feature) lines.push(`특징: ${feature}`); else missing.push("특징");
   if(power) lines.push(`특별한 힘: ${power}`); else missing.push("특별한 힘");
   if(color) lines.push(`대표 색: ${color}`);
-  if(style) lines.push(`그림 스타일: ${style}`); else lines.push("그림 스타일은 문화자원에 어울리게 AI가 자연스럽게 정하기.");
+  if(style) lines.push(getStylePrompt(style)); else lines.push("그림 스타일은 문화자원에 어울리게 AI가 자연스럽게 정하기.");
   if(freeText && freeText !== "없음") lines.push(`추가 내용: ${freeText}`);
 
   if(missing.length > 0){
